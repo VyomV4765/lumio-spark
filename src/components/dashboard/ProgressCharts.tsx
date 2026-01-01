@@ -1,5 +1,7 @@
 import { useLearning } from '@/contexts/LearningContext';
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { TeacherNotes } from './TeacherNotes';
+import { QuizSection } from './QuizSection';
 
 const weeklyData = [
   { day: 'Mon', xp: 120, lessons: 2 },
@@ -9,13 +11,6 @@ const weeklyData = [
   { day: 'Fri', xp: 280, lessons: 4 },
   { day: 'Sat', xp: 100, lessons: 1 },
   { day: 'Sun', xp: 180, lessons: 2 },
-];
-
-const categoryData = [
-  { name: 'AI & ML', progress: 65, color: 'hsl(175 84% 50%)' },
-  { name: 'Web Dev', progress: 45, color: 'hsl(265 80% 65%)' },
-  { name: 'Data Sci', progress: 30, color: 'hsl(15 90% 65%)' },
-  { name: 'Algorithms', progress: 80, color: 'hsl(145 70% 50%)' },
 ];
 
 export function ProgressCharts() {
@@ -82,54 +77,12 @@ export function ProgressCharts() {
           </div>
         </div>
 
-        {/* Category Progress */}
-        <div className="glass-card rounded-2xl p-6">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h3 className="font-semibold">Category Progress</h3>
-              <p className="text-sm text-muted-foreground">Completion by subject</p>
-            </div>
-          </div>
-          
-          <div className="h-48">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={categoryData} layout="vertical">
-                <XAxis 
-                  type="number" 
-                  domain={[0, 100]}
-                  axisLine={false}
-                  tickLine={false}
-                  tick={{ fill: 'hsl(215 20% 55%)', fontSize: 12 }}
-                />
-                <YAxis 
-                  type="category" 
-                  dataKey="name"
-                  axisLine={false}
-                  tickLine={false}
-                  tick={{ fill: 'hsl(215 20% 55%)', fontSize: 12 }}
-                  width={80}
-                />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: 'hsl(222 47% 9%)',
-                    border: '1px solid hsl(222 30% 18%)',
-                    borderRadius: '12px',
-                  }}
-                  formatter={(value: number) => [`${value}%`, 'Progress']}
-                />
-                <Bar dataKey="progress" radius={[0, 8, 8, 0]}>
-                  {categoryData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
+        {/* Teacher's Notes */}
+        <TeacherNotes />
 
         {/* Overall Stats */}
-        <div className="lg:col-span-2 glass-card rounded-2xl p-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="glass-card rounded-2xl p-6">
+          <div className="grid grid-cols-2 gap-6">
             <StatCard
               label="Total XP"
               value={userProgress.xp.toLocaleString()}
@@ -156,6 +109,9 @@ export function ProgressCharts() {
             />
           </div>
         </div>
+
+        {/* Quiz Section */}
+        <QuizSection />
       </div>
     </section>
   );
