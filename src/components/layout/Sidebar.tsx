@@ -34,21 +34,21 @@ export function Sidebar() {
 
       {/* User Stats Card */}
       <div className="p-4">
-        <div className="glass-card rounded-2xl p-4 space-y-4 border border-primary/10">
+        <div className="glass-card rounded-2xl p-4 space-y-4">
           {/* Level & XP */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center shadow-lg">
-                <span className="text-lg font-bold text-primary-foreground">{userProgress.level}</span>
+              <div className="w-12 h-12 rounded-xl bg-gradient-xp flex items-center justify-center">
+                <span className="text-lg font-bold text-accent-foreground">{userProgress.level}</span>
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">Level</p>
-                <p className="font-semibold text-primary">Scholar</p>
+                <p className="font-semibold gradient-text-xp">Scholar</p>
               </div>
             </div>
             <div className="text-right">
               <p className="text-xs text-muted-foreground">XP</p>
-              <p className="font-bold text-primary">{userProgress.xp.toLocaleString()}</p>
+              <p className="font-bold text-xp">{userProgress.xp.toLocaleString()}</p>
             </div>
           </div>
 
@@ -58,21 +58,21 @@ export function Sidebar() {
               <span>{currentLevelXp} XP</span>
               <span>{xpToNextLevel} XP</span>
             </div>
-            <div className="h-2 bg-primary/10 rounded-full overflow-hidden">
+            <div className="h-2 bg-muted rounded-full overflow-hidden">
               <div 
-                className="h-full bg-gradient-primary rounded-full transition-all duration-500"
+                className="h-full bg-gradient-xp rounded-full transition-all duration-500"
                 style={{ width: `${xpProgress}%` }}
               />
             </div>
           </div>
 
           {/* Streak */}
-          <div className="flex items-center justify-between p-3 bg-gradient-to-r from-primary/5 to-primary/10 rounded-xl border border-primary/10">
+          <div className="flex items-center justify-between p-3 bg-muted/50 rounded-xl">
             <div className="flex items-center gap-2">
-              <Flame className="w-5 h-5 text-primary animate-pulse" />
+              <Flame className="w-5 h-5 text-streak animate-pulse" />
               <span className="text-sm font-medium">Streak</span>
             </div>
-            <span className="text-xl font-bold text-primary">{userProgress.streak} days</span>
+            <span className="text-xl font-bold text-streak">{userProgress.streak} days</span>
           </div>
 
           {/* Earned Badges */}
@@ -82,7 +82,7 @@ export function Sidebar() {
               {earnedBadges.map((badge) => (
                 <div
                   key={badge.id}
-                  className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-lg hover:scale-110 hover:bg-primary/20 transition-all cursor-pointer"
+                  className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-lg hover:scale-110 transition-transform cursor-pointer"
                   title={badge.title}
                 >
                   {badge.icon}
@@ -90,7 +90,7 @@ export function Sidebar() {
               ))}
               <Link
                 to="/achievements"
-                className="w-10 h-10 rounded-lg border border-dashed border-primary/30 flex items-center justify-center text-primary/60 hover:border-primary hover:text-primary hover:bg-primary/5 transition-all"
+                className="w-10 h-10 rounded-lg border border-dashed border-muted-foreground/30 flex items-center justify-center text-muted-foreground hover:border-primary hover:text-primary transition-colors"
               >
                 <Star className="w-4 h-4" />
               </Link>

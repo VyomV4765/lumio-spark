@@ -34,19 +34,12 @@ export default function LessonPlayer() {
 
   return (
     <div className="max-w-7xl space-y-6 animate-fade-in">
-      {/* Decorative Background Elements */}
-      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 -left-40 w-80 h-80 bg-primary/8 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-1/4 w-64 h-64 bg-secondary/5 rounded-full blur-3xl" />
-      </div>
-
       {/* Back Button */}
       <Link 
         to="/"
-        className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
+        className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
       >
-        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+        <ArrowLeft className="w-4 h-4" />
         Back to Dashboard
       </Link>
 
@@ -54,7 +47,7 @@ export default function LessonPlayer() {
         {/* Main Video Section */}
         <div className="lg:col-span-2 space-y-4">
           {/* Video Player */}
-          <div className="aspect-video bg-gradient-to-br from-primary/10 via-card to-primary/5 rounded-2xl overflow-hidden relative group shadow-elevated border border-primary/10">
+          <div className="aspect-video bg-card rounded-2xl overflow-hidden relative group">
             <iframe
               src={currentLesson.videoUrl}
               className="w-full h-full"
@@ -63,11 +56,11 @@ export default function LessonPlayer() {
             />
             
             {/* Custom Controls Overlay */}
-            <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-foreground/80 via-foreground/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
               <div className="flex items-center gap-4">
                 <button 
                   onClick={() => setIsPlaying(!isPlaying)}
-                  className="w-12 h-12 rounded-full bg-primary flex items-center justify-center hover:scale-110 transition-all shadow-lg glow-primary"
+                  className="w-10 h-10 rounded-full bg-primary flex items-center justify-center hover:bg-primary-glow transition-colors"
                 >
                   {isPlaying ? (
                     <Pause className="w-5 h-5 text-primary-foreground" />
@@ -77,69 +70,66 @@ export default function LessonPlayer() {
                 </button>
                 
                 {/* Progress Bar */}
-                <div className="flex-1 h-2 bg-background/30 backdrop-blur-sm rounded-full overflow-hidden">
+                <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
                   <div 
-                    className="h-full bg-gradient-to-r from-primary to-primary-glow rounded-full transition-all"
+                    className="h-full bg-gradient-primary rounded-full"
                     style={{ width: `${currentLesson.progress}%` }}
                   />
                 </div>
                 
-                <span className="text-sm text-primary-foreground font-medium">{currentLesson.duration}</span>
+                <span className="text-sm text-muted-foreground">{currentLesson.duration}</span>
               </div>
             </div>
           </div>
 
           {/* Lesson Info */}
-          <div className="glass-card rounded-2xl p-6 space-y-5 border border-primary/10 bg-gradient-to-br from-card via-card to-primary/5">
+          <div className="glass-card rounded-2xl p-6 space-y-4">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-primary/20 to-primary/10 text-primary text-xs font-semibold border border-primary/20">
-                  <BookOpen className="w-3 h-3" />
+                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-medium">
                   {currentLesson.category}
                 </span>
-                <h1 className="text-2xl font-display font-bold mt-3 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">{currentLesson.title}</h1>
-                <p className="text-muted-foreground mt-2 leading-relaxed">{currentLesson.description}</p>
+                <h1 className="text-2xl font-display font-bold mt-3">{currentLesson.title}</h1>
+                <p className="text-muted-foreground mt-2">{currentLesson.description}</p>
               </div>
               
-              <div className="flex items-center gap-2 text-sm bg-primary/10 text-primary px-3 py-2 rounded-xl font-medium shrink-0 border border-primary/20">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground shrink-0">
                 <Clock className="w-4 h-4" />
                 {currentLesson.duration}
               </div>
             </div>
 
             {/* Progress */}
-            <div className="space-y-3 p-4 rounded-xl bg-gradient-to-r from-primary/5 to-transparent border border-primary/10">
+            <div className="space-y-2">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground font-medium">Your Progress</span>
-                <span className="font-bold text-primary text-lg">{currentLesson.progress}%</span>
+                <span className="text-muted-foreground">Your Progress</span>
+                <span className="font-semibold text-primary">{currentLesson.progress}%</span>
               </div>
-              <div className="h-3 bg-muted rounded-full overflow-hidden shadow-inner">
+              <div className="h-2 bg-muted rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-gradient-to-r from-primary via-primary to-primary-glow rounded-full transition-all duration-500 relative"
+                  className="h-full bg-gradient-primary rounded-full transition-all duration-500"
                   style={{ width: `${currentLesson.progress}%` }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-t from-transparent to-white/20" />
-                </div>
+                />
               </div>
             </div>
 
             {/* Actions */}
             <div className="flex gap-3">
               {currentLesson.isCompleted ? (
-                <Button disabled className="flex-1 gap-2 bg-success/20 text-success border border-success/30">
+                <Button disabled className="flex-1 gap-2">
                   <CheckCircle className="w-4 h-4" />
                   Completed
                 </Button>
               ) : (
                 <Button 
                   onClick={handleCompleteLesson}
-                  className="flex-1 bg-gradient-to-r from-primary to-primary-glow hover:opacity-90 gap-2 shadow-lg glow-primary transition-all hover:scale-[1.02]"
+                  className="flex-1 bg-gradient-primary hover:opacity-90 gap-2"
                 >
                   <CheckCircle className="w-4 h-4" />
                   Mark as Complete (+50 XP)
                 </Button>
               )}
-              <Button variant="outline" className="gap-2 border-primary/30 text-primary hover:bg-primary/10 hover:border-primary/50 transition-all">
+              <Button variant="outline" className="gap-2">
                 <SkipForward className="w-4 h-4" />
                 Next Lesson
               </Button>
@@ -150,16 +140,16 @@ export default function LessonPlayer() {
         {/* Sidebar */}
         <div className="space-y-4">
           {/* Tab Navigation */}
-          <div className="glass-card rounded-xl p-1.5 flex bg-gradient-to-r from-primary/5 to-transparent border border-primary/10">
+          <div className="glass-card rounded-xl p-1 flex">
             {(['playlist', 'notes', 'resources'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={cn(
-                  "flex-1 py-2.5 px-3 rounded-lg text-sm font-semibold transition-all capitalize",
+                  "flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all capitalize",
                   activeTab === tab
-                    ? "bg-gradient-to-r from-primary to-primary-glow text-primary-foreground shadow-md"
-                    : "text-muted-foreground hover:text-primary hover:bg-primary/10"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 {tab}
@@ -168,44 +158,41 @@ export default function LessonPlayer() {
           </div>
 
           {/* Tab Content */}
-          <div className="glass-card rounded-2xl overflow-hidden border border-primary/10 bg-gradient-to-b from-card to-primary/5">
+          <div className="glass-card rounded-2xl overflow-hidden">
             {activeTab === 'playlist' && (
-              <div className="divide-y divide-primary/10 max-h-[500px] overflow-y-auto">
+              <div className="divide-y divide-border max-h-[500px] overflow-y-auto">
                 {/* Current Lesson */}
-                <div className="p-4 bg-gradient-to-r from-primary/15 via-primary/10 to-transparent border-l-4 border-primary">
+                <div className="p-4 bg-primary/10">
                   <div className="flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center shrink-0 shadow-md animate-pulse-glow">
+                    <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center shrink-0">
                       <Play className="w-4 h-4 text-primary-foreground ml-0.5" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-bold text-sm truncate text-primary">{currentLesson.title}</p>
-                      <p className="text-xs text-primary/70 font-medium">{currentLesson.duration} • Now Playing</p>
+                      <p className="font-semibold text-sm truncate text-primary">{currentLesson.title}</p>
+                      <p className="text-xs text-muted-foreground">{currentLesson.duration}</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Other Lessons */}
-                {otherLessons.map((lesson, index) => (
+                {otherLessons.map((lesson) => (
                   <Link
                     key={lesson.id}
                     to={`/learn/${lesson.id}`}
-                    className="p-4 flex items-center gap-3 hover:bg-primary/5 transition-all group/item"
-                    style={{ animationDelay: `${index * 50}ms` }}
+                    className="p-4 flex items-center gap-3 hover:bg-muted/30 transition-colors"
                   >
                     <div className={cn(
-                      "w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-all group-hover/item:scale-105",
-                      lesson.isCompleted 
-                        ? "bg-gradient-to-br from-success/20 to-success/10 border border-success/30" 
-                        : "bg-gradient-to-br from-muted to-muted/50 border border-border"
+                      "w-10 h-10 rounded-lg flex items-center justify-center shrink-0",
+                      lesson.isCompleted ? "bg-success/10" : "bg-muted"
                     )}>
                       {lesson.isCompleted ? (
                         <CheckCircle className="w-4 h-4 text-success" />
                       ) : (
-                        <Play className="w-4 h-4 text-muted-foreground group-hover/item:text-primary ml-0.5 transition-colors" />
+                        <Play className="w-4 h-4 text-muted-foreground ml-0.5" />
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-sm truncate group-hover/item:text-primary transition-colors">{lesson.title}</p>
+                      <p className="font-medium text-sm truncate">{lesson.title}</p>
                       <p className="text-xs text-muted-foreground">{lesson.duration}</p>
                     </div>
                   </Link>
@@ -215,53 +202,51 @@ export default function LessonPlayer() {
 
             {activeTab === 'notes' && (
               <div className="p-6 space-y-4">
-                <div className="flex items-center gap-2 text-primary">
-                  <div className="p-2 rounded-lg bg-primary/10">
-                    <FileText className="w-5 h-5" />
-                  </div>
-                  <span className="text-sm font-semibold">Lesson Notes</span>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <FileText className="w-5 h-5" />
+                  <span className="text-sm">Lesson Notes</span>
                 </div>
                 <div className="space-y-3">
-                  {[
-                    { title: 'Key Concept #1', content: 'Machine learning is a subset of AI that enables computers to learn from data...' },
-                    { title: 'Key Concept #2', content: 'Supervised learning uses labeled data to train models for prediction...' },
-                    { title: 'Key Concept #3', content: 'Neural networks are inspired by the human brain\'s architecture...' },
-                  ].map((note, i) => (
-                    <div key={i} className="p-4 bg-gradient-to-r from-primary/10 to-transparent rounded-xl text-sm border border-primary/10 hover:border-primary/30 transition-colors">
-                      <p className="font-bold mb-1.5 text-foreground">{note.title}</p>
-                      <p className="text-muted-foreground text-xs leading-relaxed">{note.content}</p>
-                    </div>
-                  ))}
+                  <div className="p-3 bg-muted/50 rounded-lg text-sm">
+                    <p className="font-medium mb-1">Key Concept #1</p>
+                    <p className="text-muted-foreground text-xs">Machine learning is a subset of AI that enables computers to learn from data...</p>
+                  </div>
+                  <div className="p-3 bg-muted/50 rounded-lg text-sm">
+                    <p className="font-medium mb-1">Key Concept #2</p>
+                    <p className="text-muted-foreground text-xs">Supervised learning uses labeled data to train models for prediction...</p>
+                  </div>
+                  <div className="p-3 bg-muted/50 rounded-lg text-sm">
+                    <p className="font-medium mb-1">Key Concept #3</p>
+                    <p className="text-muted-foreground text-xs">Neural networks are inspired by the human brain's architecture...</p>
+                  </div>
                 </div>
               </div>
             )}
 
             {activeTab === 'resources' && (
               <div className="p-6 space-y-4">
-                <div className="flex items-center gap-2 text-primary">
-                  <div className="p-2 rounded-lg bg-primary/10">
-                    <Download className="w-5 h-5" />
-                  </div>
-                  <span className="text-sm font-semibold">Downloadable Resources</span>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Download className="w-5 h-5" />
+                  <span className="text-sm">Downloadable Resources</span>
                 </div>
-                <div className="space-y-3">
+                <div className="space-y-2">
                   {[
-                    { name: 'Lesson Slides', type: 'PDF', size: '2.4 MB', color: 'from-red-500/20 to-red-500/5' },
-                    { name: 'Code Examples', type: 'ZIP', size: '1.1 MB', color: 'from-blue-500/20 to-blue-500/5' },
-                    { name: 'Cheat Sheet', type: 'PDF', size: '0.5 MB', color: 'from-primary/20 to-primary/5' },
+                    { name: 'Lesson Slides', type: 'PDF', size: '2.4 MB' },
+                    { name: 'Code Examples', type: 'ZIP', size: '1.1 MB' },
+                    { name: 'Cheat Sheet', type: 'PDF', size: '0.5 MB' },
                   ].map((resource, i) => (
                     <button
                       key={i}
-                      className="w-full p-4 bg-gradient-to-r from-muted/50 to-transparent rounded-xl flex items-center gap-3 hover:from-primary/10 hover:to-transparent transition-all text-left group/resource border border-transparent hover:border-primary/20"
+                      className="w-full p-3 bg-muted/50 rounded-lg flex items-center gap-3 hover:bg-muted transition-colors text-left"
                     >
-                      <div className={cn("w-11 h-11 rounded-xl bg-gradient-to-br flex items-center justify-center border border-primary/20", resource.color)}>
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                         <FileText className="w-4 h-4 text-primary" />
                       </div>
                       <div className="flex-1">
-                        <p className="font-semibold text-sm group-hover/resource:text-primary transition-colors">{resource.name}</p>
+                        <p className="font-medium text-sm">{resource.name}</p>
                         <p className="text-xs text-muted-foreground">{resource.type} • {resource.size}</p>
                       </div>
-                      <Download className="w-4 h-4 text-muted-foreground group-hover/resource:text-primary transition-colors" />
+                      <Download className="w-4 h-4 text-muted-foreground" />
                     </button>
                   ))}
                 </div>
