@@ -1,10 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, BookOpen, Trophy, Settings, Flame, Star, Zap } from 'lucide-react';
+import { Home, BookOpen, Trophy, Settings, Flame, Star, Zap, Sparkles } from 'lucide-react';
 import { useLearning } from '@/contexts/LearningContext';
 import { cn } from '@/lib/utils';
 
 const navItems = [
   { icon: Home, label: 'Dashboard', path: '/' },
+  { icon: Sparkles, label: 'How It Works', path: '/how-it-works' },
   { icon: BookOpen, label: 'Lessons', path: '/lessons' },
   { icon: Trophy, label: 'Achievements', path: '/achievements' },
   { icon: Settings, label: 'Settings', path: '/settings' },
