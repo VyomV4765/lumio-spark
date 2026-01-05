@@ -10,6 +10,7 @@ import LessonPlayer from "./pages/LessonPlayer";
 import Achievements from "./pages/Achievements";
 import Lessons from "./pages/Lessons";
 import Settings from "./pages/Settings";
+import HowItWorks from "./pages/HowItWorks";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <MainLayout>
             <Routes>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/how-it-works" element={<HowItWorks />} />
               <Route path="/lessons" element={<Lessons />} />
               <Route path="/learn/:lessonId" element={<LessonPlayer />} />
               <Route path="/achievements" element={<Achievements />} />
