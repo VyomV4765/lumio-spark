@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, BookOpen, Trophy, Settings, Flame, Star, Zap, Sparkles } from 'lucide-react';
+import { Home, BookOpen, Trophy, Settings, Flame, Star, Zap, Sparkles, LogIn } from 'lucide-react';
 import { useLearning } from '@/contexts/LearningContext';
 import { cn } from '@/lib/utils';
 
@@ -9,6 +9,7 @@ const navItems = [
   { icon: BookOpen, label: 'Lessons', path: '/lessons' },
   { icon: Trophy, label: 'Achievements', path: '/achievements' },
   { icon: Settings, label: 'Settings', path: '/settings' },
+  { icon: LogIn, label: 'Login', path: '/auth' },
 ];
 
 export function Sidebar() {

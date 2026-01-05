@@ -11,6 +11,7 @@ import Achievements from "./pages/Achievements";
 import Lessons from "./pages/Lessons";
 import Settings from "./pages/Settings";
 import HowItWorks from "./pages/HowItWorks";
+import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,17 +23,22 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <MainLayout>
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/how-it-works" element={<HowItWorks />} />
-              <Route path="/lessons" element={<Lessons />} />
-              <Route path="/learn/:lessonId" element={<LessonPlayer />} />
-              <Route path="/achievements" element={<Achievements />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </MainLayout>
+          <Routes>
+            <Route path="/auth" element={<Auth />} />
+            <Route path="*" element={
+              <MainLayout>
+                <Routes>
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/how-it-works" element={<HowItWorks />} />
+                  <Route path="/lessons" element={<Lessons />} />
+                  <Route path="/learn/:lessonId" element={<LessonPlayer />} />
+                  <Route path="/achievements" element={<Achievements />} />
+                  <Route path="/settings" element={<Settings />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </MainLayout>
+            } />
+          </Routes>
         </BrowserRouter>
       </LearningProvider>
     </TooltipProvider>
